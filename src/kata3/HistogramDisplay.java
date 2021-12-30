@@ -11,10 +11,14 @@ import org.jfree.chart.plot.PlotOrientation;
 
 public class HistogramDisplay extends ApplicationFrame{
 
-    public HistogramDisplay(){
+    private final Histogram<String> histogram;
+    
+    public HistogramDisplay(Histogram<String> histogram){
         super("HISTOGRAMA");
+        this.histogram = histogram;
         setContentPane(createPanel());
         pack();
+        
     }
 
     public void execute(){
@@ -41,10 +45,9 @@ public class HistogramDisplay extends ApplicationFrame{
 
     private DefaultCategoryDataset createDataset(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(6,"","ulpgc.es");
-        dataset.addValue(6,"","ulpgc.");
-        dataset.addValue(6,"","ulpgc.e");
-        dataset.addValue(6,"","ulp");
+        for (String key : histogram.keySet()){
+            dataset.addValue(histogram.get(key),"",key);
+        }
         return dataset;
     }
 
